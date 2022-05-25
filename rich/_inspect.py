@@ -12,19 +12,6 @@ from .pretty import Pretty
 from .table import Table
 from .text import Text, TextType
 
-_SPECIAL_CHARACTERS_TRANSLATION_TABLE = str.maketrans(
-    # Some special characters (such as "\b", aka "Backspace") are stripped from the docstrings when
-    # we display them, and also mess up our processing
-    # --> let's replace them with a readable "non-special" version of them (i.e. "\b" -> "\\b"):
-    {
-        "\a": "\\a",  # ASCII Bell
-        "\b": "\\b",  # ASCII Backspace
-        "\f": "\\f",  # ASCII Formfeed
-        "\r": "\\r",  # ASCII Carriage Return
-        "\v": "\\v",  # ASCII Vertical Tab
-    }
-)
-
 
 def _first_paragraph(doc: str) -> str:
     """Get the first paragraph from a docstring."""
@@ -230,5 +217,4 @@ class Inspect(JupyterMixin):
         docs = cleandoc(docs).strip()
         if not self.help:
             docs = _first_paragraph(docs)
-        docs = docs.translate(_SPECIAL_CHARACTERS_TRANSLATION_TABLE)
         return docs

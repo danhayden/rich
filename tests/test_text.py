@@ -583,11 +583,11 @@ def test_styled():
     assert text._spans == [Span(0, 3, "bold red")]
 
 
-def test_strip_control_codes():
+def test_make_control_codes_readable():
     text = Text("foo\rbar")
-    assert str(text) == "foobar"
+    assert str(text) == "foo\\rbar"
     text.append("\x08")
-    assert str(text) == "foobar"
+    assert str(text) == "foo\\rbar\\b"
 
 
 def test_get_style_at_offset():
